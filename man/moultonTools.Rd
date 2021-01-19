@@ -7,7 +7,7 @@
 moultonTools
 }
 \description{
-Tools for applying the Moulton correction for clustering
+Tools for applying the Moulton correction for clustering. Primarily based on the book "Mostly harmless econometrics: An empiricists companion", Angrist J. and Pishke J.S., Princeton, Oxford, 2009.
 }
 \details{
 \tabular{ll}{
@@ -22,8 +22,6 @@ LazyLoad: \tab yes\cr
 \author{
 Marina Braschler <marina.braschler@gmail.com>\cr
 Thomas Braschler <thomas.braschler@gmail.com>\cr
-Yvana Kim\cr
-Joan Miller
 }
 
 \keyword{misc}
