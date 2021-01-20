@@ -28,7 +28,7 @@ The default value of the \code{method} argument is \code{"unbiased"}, alternativ
 
 We provide also an unbiased estimator which is equal to exactly equal to 1 for the totally correlated case. It can be invoked by providing \code{method="unbiased_unequal_cluster_size"} to \link{ICC}. This estimator is derived from the ANOVA estimator of intraclass correlation, which relates the intergroup variance to the total variance, but it is corrected for biais to give an expectation value of 0 for independently, equally and normally distributed outcome values. This estimator is \code{(n-3)/(n-N-2)*sum(ng*(zg-zbar))/sum(zi-zbar)-(N-1)/(n-N-2)}. The symboles are: \code{n} is the total number of observations (i.e. \code{length(outcome)=length(group)}), \code{N} the number of groups (i.e. \code{length(unique(group))}), \code{zbar} the overall mean (given by \code{zbar=mean(outcome)}), \code{ng} the individual group sizes (obtainable for example by \code{aggregate(outcome ~ group, FUN=length)}) and \code{zg} are the group means (obtainable for example by \code{aggregate(outcome ~ group, FUN=length)}).
 
-In addition, we provide an ANOVA-type estimator for completeness. For this, \link{ICC} needs to be invoked with \code{method="ANOVA"}. In this case, the \link{lme} linear effects model from the \link{nlm} pacakge is used for variance decomposition, and the fraction of the variance represented by the inter-group variance as compared to the total variance is returned as the intraclass correlation coefficient.
+In addition, we provide an ANOVA-type estimator for completeness. For this, \link{ICC} needs to be invoked with \code{method="ANOVA"}. In this case, \link{anova} on a standard linear model \link{lm} is used for variance decomposition, and the fraction of the variance represented by the inter-group variance as compared to the total variance is returned as the intraclass correlation coefficient.\cr\cr
 
 For all methods, the calculation of the intraclass correlation involves sums of squares. No continuity correction is applied, so caution should be used if some of the group sizes are less than 5.
 
@@ -65,6 +65,14 @@ for(theMethod in colnames(current))
 ICC_values=rbind(ICC_values,current)
 }
 lapply(ICC_values,mean)
+
+#If the outcome is a factor, this is assumed unordered and the mean ICC for presence/absence of each level is returned.
+#In the complete clustered case, factors levels are distinct and identically associated with the group, the ICC value should be 1
+outcome=as.factor(c(rep("A",3),rep("B",2),rep("C",6)))
+group=c(1,1,1,2,2,3,3,3,3,3,3)
+ICC(outcome,group) # Fisher formula by default
+ICC(outcome,group,method="unbiased_unequal_cluster_size")
+ICC(outcome,group,method="ANOVA")
 
 \dontrun{
 # Further detailed calculations are given in this pdf file within the /inst folder of this package. Here's the path:

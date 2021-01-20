@@ -27,7 +27,7 @@ moulton_factor<-function(outcome,group,estimator=NULL,...)
     } else {
         
         
-       px=ICC(as.numeric(estimator),group,...)
+       px=ICC(estimator,group,...)
         
        
         

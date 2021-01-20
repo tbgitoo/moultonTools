@@ -98,10 +98,12 @@ ICC<-function(outcome,group,method="unbiased")
     outcome=as.numeric(outcome)
     
     
-    nested_model = lme(outcome~1,random=~1|group)
+    linmod = lm(outcome~group)
     
+    Var_intragroup = anova(linmod)["Residuals","Sum Sq"]
+    Var_intergroup = anova(linmod)["group","Sum Sq"]
     
-    ICC_m=as.numeric(VarCorr(nested_model)[1,1])/(as.numeric(VarCorr(nested_model)[1,1])+as.numeric(VarCorr(nested_model)[2,1]))
+    ICC_m=Var_intergroup/(Var_intergroup+Var_intragroup)
     
     return(ICC_m)
     
@@ -112,14 +114,18 @@ ICC<-function(outcome,group,method="unbiased")
     
     
 
-    } else { # If the outcome is a factor, this is non-ordered. We decompose this to 0-1 variables for each level and sum up
+    } else { # If the outcome is a factor, we assume this is non-ordered. We decompose this to 0-1 variables for each level and sum up
         
+        sum_ICC=0
+        n_ICC=0
         for(theLevel in levels(outcome))
         {
             levelOutcome = as.numeric(outcome==theLevel)
+            sum_ICC=sum_ICC+ICC(levelOutcome,group,method=method)
+            n_ICC=n_ICC+1
         }
     
-    
+        return (sum_ICC/n_ICC)
     
         
     }
