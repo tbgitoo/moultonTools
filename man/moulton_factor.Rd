@@ -28,6 +28,11 @@ Also, Mouton factors can be used to correct linear statistics such as t-statisti
 \author{
 Thomas and Marina Braschler
 }
+
+\seealso{
+The Moulton function draws on the functionality of intraclass-correlation, see \link{ICC}.
+}
+
 \examples{
 # Worst case scenario with a priori unknown or badly balanced regressors
 outcome=c(-1,-1.5,-2,-1.5,2,2.5,3,2.5)
@@ -48,10 +53,6 @@ outcome=c(-1,-1.5,-2,-1.5,2,2.5,3,2.5,1.5)
 group=c(1,1,1,1,2,2,2,2,2)
 estimator=as.factor(c("A","A","B","B","C","C","A","A","A"))
 moulton_factor(outcome,group,estimator=estimator)
-
-
-
-
 
 
 }

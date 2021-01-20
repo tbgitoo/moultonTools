@@ -32,6 +32,11 @@ A matrix containing the p-values of t-tests, comparing the data for each of the 
 \author{
 Thomas Braschler
 }
+
+\seealso{
+This is a convenience interface to \link{t.test.moulton}, see \link{t.test.moulton} for further documentation on the actual testing.
+}
+
 \examples{
 
 

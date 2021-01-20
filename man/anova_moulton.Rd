@@ -5,7 +5,7 @@
 anova_moulton
 }
 \description{
-Anova for analysis including clustered variables. Corrects the F values by taking into account intraclass correlation for known grouping by the Moulton formula (Mostly Harmless Econometrics: An Empiricist's Compagnion, Joshua D. Angrist and Joern-Steffen Pischke), and corrects the degrees of freedom by the between-within method (Singer JD. Using SAS PROC MIXED to fit multilevel models, hierarchical models, and individual growth models. Journal of Educational and Behavioral Statistics. 1998;24:323?355).
+Anova for analysis including clustered variables. Corrects the F values by taking into account intraclass correlation for known grouping by the Moulton formula (Mostly Harmless Econometrics: An Empiricist's Compagnion, Joshua D. Angrist and Joern-Steffen Pischke), and corrects the degrees of freedom by the between-within method (Singer JD. Using SAS PROC MIXED to fit multilevel models, hierarchical models, and individual growth models. Journal of Educational and Behavioral Statistics. 1998;24:323-355).
 }
 \usage{
 anova_moulton(linmod,data_object,grouping_col,use_predictors=TRUE,method="unbiased")
@@ -56,6 +56,15 @@ anova_moulton(linmod,data_object,"clusters")
 # One gets to a similar conclusion by aggregating both the outcome and the regressors within the clusters: The trend seems to be there, but the effective n is too low
 aggregated_data_object=aggregate(data_object[,c("outcome","regressor")],by=list(clusters=data_object$clusters),FUN=mean)
 summary(lm(outcome~regressor,aggregated_data_object))
+
+}
+
+
+\references{
+
+"Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008 \cr\cr
+
+"Using SAS PROC MIXED to fit multilevel models, hierarchical models, and individual growth models." Singer JD.  Journal of Educational and Behavioral Statistics. 1998;24:323-355
 
 }
 
