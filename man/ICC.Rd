@@ -30,7 +30,7 @@ We provide also an unbiased estimator which is equal to exactly equal to 1 for t
 
 In addition, we provide an ANOVA-type estimator for completeness. For this, \link{ICC} needs to be invoked with \code{method="ANOVA"}. In this case, the \link{lme} linear effects model from the \link{nlm} pacakge is used for variance decomposition, and the fraction of the variance represented by the inter-group variance as compared to the total variance is returned as the intraclass correlation coefficient.
 
-As a word of caution, in practice, we find very small group sizes (<5 elements per group) to be associated with a trend to negative intraclass correlation coefficients rather than the 0 expectation value for the unbiased methods. This is because biais-minimization for the methods \code{"unbiased"} and \code{"unbiased_unequal_cluster_size"} is based on F-statistics, and very low group sizes introduces dependences between the variance and the inter-group variances that are not taken into account. As for Chi-squared statistics, it is probably best if each group has at least 5 elements.}
+For all methods, the calculation of the intraclass correlation involves sums of squares. No continuity correction is applied, so caution should be used if some of the group sizes are less than 5.
 
 \author{
 Thomas and Marina Braschler
