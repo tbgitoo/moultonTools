@@ -73,7 +73,17 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
         
         df <- cluster_nx - 1
         
-        moulton_factor_x = moulton_factor(x,cluster_x)
+        moulton_factor_x=1
+        
+        arguments=list(...) # Potentially, the users wants a specific ICC method
+        if("method" %in% names(arguments))
+        {
+        
+        moulton_factor_x = moulton_factor(x,cluster_x,method=arguments["method"])
+        
+        } else {
+            moulton_factor_x=moulton_factor(x,cluster_x)
+        }
         
         
         # Correct the variance by multiplying with the Moulton factor squared
@@ -117,7 +127,21 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
         "Welch", "Two Sample t-test")
         estimate <- c(mx, my)
         names(estimate) <- c("mean of x", "mean of y")
-        mf<-moulton_factor(c(x,y),c(cluster_x,cluster_y),c(rep(1,nx),rep(2,ny)))
+        
+        mf<-1
+        
+        arguments=list(...) # Potentially, the users wants a specific ICC method
+        if("method" %in% names(arguments))
+        {
+        
+        mf<-moulton_factor(c(x,y),c(cluster_x,cluster_y),c(rep(1,nx),rep(2,ny)),
+            method=arguments["method"])
+        
+        } else {
+            mf<-moulton_factor(c(x,y),c(cluster_x,cluster_y),c(rep(1,nx),rep(2,ny)))
+        }
+        
+        
         if (var.equal) {
             df <- nx + ny - 2
             v <- 0

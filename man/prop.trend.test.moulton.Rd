@@ -22,7 +22,7 @@ prop.trend.test.moulton(binaryResponse, score, cluster=seq_along(binaryResponse)
 \item{cluster}{
 	A vector indicating the cluster identities, of the same length as \code{binaryResponse}
 }
-
+\item{...}{Additional arguments to be passed to the underlying \link{moulton_factor} function, particularly a \code{method} argument to use different methods for the estimation of intraclass correlation. See also \link{ICC}}.
 
 }
 \details{ The function evaluates the proportions from the binary response variable (\code{binaryResponse}) categorized using the \code{score} variable. It then invokes \link{prop.trend.test} with these proportions. Then, the Moulton correction is applied, by means of a Moulton factor calculated by \link{moulton_factor} based on the \code{cluster} column }

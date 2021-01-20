@@ -35,7 +35,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
 \item{var.equal}{a logical variable indicating whether to treat the two variances as being equal. If TRUE then the pooled variance is used to estimate the variance otherwise the Welch (or Satterthwaite) approximation to the degrees of freedom is used.}
 \item{conf.level}{confidence level of the interval.}
 
-\item{...}{If NULL is provided explicitly for both \code{cluster_x} and \code{cluster_y}, the \link{t.test} function is called and the arguments \code{...} are passed on to \link{t.test} }
+\item{...}{If NULL is provided explicitly for both \code{cluster_x} and \code{cluster_y}, the \link{t.test} function is called and the arguments \code{...} are passed on to \link{t.test}. It is also possible to provide an \code{method} argument, this will be used internally in \link{moulton_factor} and \link{ICC} evaluation. }
 
 }
 \details{ There are a number of different cases for the t-test, the following corrections are applied: \cr\cr
@@ -76,7 +76,7 @@ y=cluster_values[cluster_y]+rnorm(3*n,sd=0.15)
 y=c(cluster_values[4]+rnorm(n,sd=0.15),cluster_values[5]+rnorm(n,sd=0.15),cluster_values[6]+rnorm(n,sd=0.15))
 
 
-# Simple t-testing gives quite often a highly significant result
+# Simple t-testing gives quite often a highly significant result (not always though, just re-run to get an idea)
 
 t.test(x,y)
 

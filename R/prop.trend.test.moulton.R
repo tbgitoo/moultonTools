@@ -1,4 +1,4 @@
-prop.trend.test.moulton<-function (binaryResponse, score, cluster=seq_along(binaryResponse) )
+prop.trend.test.moulton<-function (binaryResponse, score, cluster=seq_along(binaryResponse),... )
 {
     
     x <- as.vector(table(as.logical(binaryResponse),as.numeric(score))["TRUE",])
@@ -8,7 +8,7 @@ prop.trend.test.moulton<-function (binaryResponse, score, cluster=seq_along(bina
     
     test_result=prop.trend.test(x,n,scores)
     
-    mf <- moulton_factor(binaryResponse,cluster,score)
+    mf <- moulton_factor(binaryResponse,cluster,score,...)
     
     test_result[["statistic"]][["X-squared"]]=test_result[["statistic"]][["X-squared"]]/mf^2
     test_result[["p.value"]]=pchisq(as.numeric( test_result[["statistic"]][["X-squared"]]), 1, lower.tail = FALSE)
