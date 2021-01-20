@@ -1,4 +1,4 @@
-anova_moulton<-function(linmod,data_object,grouping_col,use_predictors=TRUE)
+anova_moulton<-function(linmod,data_object,grouping_col,use_predictors=TRUE,method="unbiased")
 {
     
     mf=model.frame(linmod)
@@ -17,8 +17,9 @@ anova_moulton<-function(linmod,data_object,grouping_col,use_predictors=TRUE)
     moulton_factors = vector(mode="numeric",length=length(rownames(anv))-1)
     
     names(moulton_factors)=rownames(anv)[1:(length(rownames(anv))-1)]
+    ICC_outcome = 0
     
-    ICC_outcome = ICC(outcome,group)
+    ICC_outcome = ICC(outcome,group,method=method)
     
     ICC_predictor = moulton_factors
     
@@ -30,9 +31,14 @@ anova_moulton<-function(linmod,data_object,grouping_col,use_predictors=TRUE)
      
         if(use_predictors) {
          estimator = as.numeric(data_object[,moulton_col]) } else { estimator=NULL }
+        
+        moulton_factors[moulton_col]=1
+        
+        
+        moulton_factors[moulton_col]=moulton_factor(outcome,group,estimator,method=method)
+        
      
-     
-        moulton_factors[moulton_col]=moulton_factor(outcome,group,estimator)
+        
         
         ICC_predictor[moulton_col]=ICC(estimator,group)
         

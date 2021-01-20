@@ -92,9 +92,11 @@ p_vector=vector(mode="numeric",length=2)
 
 names(p_vector)=c("no.correction","moulton")
 
-p_vector["no.correction"]=prop.trend.test(x_prop_trend_test,n_prop_trend_test)$p.value
-
-p_vector["moulton"]=prop.trend.test.moulton(response, score, cluster_id )$p.value
+# There are occasionally some occurrences where the proportions generate warnings, suppress it here. This happens if a perfect with is possible
+# for example if x_prop_trend_test is constant or if makes a regularly ascending or descending series as in (2,5,8) out of (20,20,20). This warning here
+# is irrelevant, suppress
+p_vector["no.correction"]=suppressWarnings(prop.trend.test(x_prop_trend_test,n_prop_trend_test)$p.value)
+p_vector["moulton"]=suppressWarnings(prop.trend.test.moulton(response, score, cluster_id )$p.value)
 
 return(p_vector)
 
