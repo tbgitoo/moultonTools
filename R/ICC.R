@@ -64,7 +64,7 @@ ICC<-function(outcome,group,method="unbiased")
     
     x_mean = mean(outcome)
     
-    if(method=="unbiased") #from Mostly harmless econometrics, Angrist and Pischke, eq. 8.2.5, transformed for more compact evaluation
+    if(method=="unbiased" | method=="Fisher") #from Mostly harmless econometrics, Angrist and Pischke, eq. 8.2.5, transformed for more compact evaluation
     {
     
         ng=aggregate(outcome~group,FUN=length)$outcome
@@ -72,7 +72,7 @@ ICC<-function(outcome,group,method="unbiased")
         n=length(outcome)
         return((sum(ng^2*(zg-mean(outcome))^2)/(sum((outcome-mean(outcome))^2)/n)-n)/sum(ng*(ng-1)))
     
-    } else if(method=="unequal_cluster_size") {
+    } else if(method=="unbiased_unequal_cluster_size") {
         # We find the formula in Mostly harmless econometric to not give exactly 1 for homogeneous cluster (no intra-cluster variability) when the clusters
         # are not of equal size. To address this problem, the formula here can be used. It is engineered to give approximatly 0 for non-clustered variables,
         # and exactly 1 for perfect clustering
@@ -86,7 +86,7 @@ ICC<-function(outcome,group,method="unbiased")
         #return((sum(ng*(zg-mean(z))^2)/(sum((z-mean(z))^2)/n)))
         
     
-    }
+    } else if(method=="ANOVA")
     { # Group variance over total residual variance, general method, for example eq. 8.2.3 in Mostly harmless econometrics, Angrist and Pischke
     
     ag=aggregate( outcome ~group,FUN=function(x){return(all(duplicated(x)[-1]))})
@@ -105,6 +105,9 @@ ICC<-function(outcome,group,method="unbiased")
     
     return(ICC_m)
     
+    } else {
+        
+        stop("Method not implemented")
     }
     
     
