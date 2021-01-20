@@ -66,6 +66,17 @@ ICC_values=rbind(ICC_values,current)
 }
 lapply(ICC_values,mean)
 
+\dontrun{
+# Further detailed calculations are given in this pdf file within the /inst folder of this package. Here's the path:
+system.file("calculations","ICC_calculations.pdf",package="moultonTools")
+
+# To directly view it, this might work on some systems. Otherwise you'll have to navigate to the path given above if interested.
+n <- grep("pdf", names(options()))
+system_pdf_viewer=options()[[n]]
+system_pdf_command = paste(system_pdf_viewer, system.file("calculations","ICC_calculations.pdf",package="moultonTools"),"2> /dev/null &",sep=" ")
+system(system_pdf_command)
+}
+
 
 
 }
