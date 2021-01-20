@@ -32,6 +32,8 @@ In addition, we provide an ANOVA-type estimator for completeness. For this, \lin
 
 For all methods, the calculation of the intraclass correlation involves sums of squares. No continuity correction is applied, so caution should be used if some of the group sizes are less than 5.
 
+}
+
 \author{
 Thomas and Marina Braschler
 }
