@@ -81,5 +81,25 @@ system(system_pdf_command)
 
 }
 
+\seealso{
+  The ANOVA approach to intraclass correlation offers substantial flexibility and power to analyse many different situations and models. A simple ANOVA method has been included here for completeness, but it is generally advisable to use some of these more flexible frameworks. They are particularly well established in the field of psychology, as one can see from the available R packages. Some examples are:\cr
+  The package "psy" provides an ICC evaluation (function icc in the psy package) for data with identified raters and subjects (here, by equivalence, raters would be known but not the exact subject matching). \cr
+  The package "irr" provides ICC evaluation (function icc in the irr package) based on ANOVA, covering many different cases and also hypothesis testing.\cr
+  The package "psych" similarly provides extensive ICC evaluation (function ICC in the psych package) based on ANOVA, covering many different cases, definitions and also hypothesis testing.\cr
+  The package "rptR" focuses on repeatibility aspects and adds permutation tests and confidence intervals.\cr
+  \cr\cr
+  More specifically regarding econometrics, there is a R companion to the book "Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008. It is available on as R package on Github (see https://github.com/MatthieuStigler/RCompAngrist), although it seems not to have been maintained further.
+ 
+}
+
+\references{
+
+"Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008 \cr\cr
+
+"Statistical Methods for Research Workers", Fisher R.A.,(Twelth Ed.), Edinburgh: Oliver and Boyd, 1954
+
+
+}
+
 \keyword{ misc }
 
