@@ -9,7 +9,34 @@ moulton_factor<-function(outcome,group,estimator=NULL,...)
     
     group=as.factor(group)
     
-    intraclass = ICC(outcome,group,...)
+    intraclass=0
+    
+    arguments=list(...)
+    if("method" %in% names(arguments))
+    {
+        if(arguments[["method"]]=="Angrist_mixed")
+        {
+            call_args=c(list("outcome"=outcome,"group"=group))
+            for(theArg in names(arguments))
+            {
+                if(theArg!="method")
+                {
+                call_args[[theArg]]=arguments[[theArg]]
+                } else {
+                    call_args[["method"]]="ANOVA"
+                }
+            }
+            
+            
+            intraclass=do.call(ICC,call_args)
+        } else {
+            intraclass = ICC(outcome,group,...)
+        }
+    } else {
+        intraclass = ICC(outcome,group,...)
+    }
+    
+    
     
     
     
@@ -25,14 +52,28 @@ moulton_factor<-function(outcome,group,estimator=NULL,...)
        px=1
         
     } else {
-        
-        
-       px=ICC(estimator,group,...)
-        
+       # Allow here for Angrist's mixed method: Fisher method for px but variance method for the ICC
+       arguments=list(...)
+       if("method" %in% names(arguments))
+       {
+           if(arguments[["method"]]=="Angrist_mixed")
+           {
+               call_args=c(list("outcome"=estimator,"group"=group),arguments)
+               call_args[["method"]]="unbiased"
+               
+               px=do.call(ICC,call_args)
+           } else {
+               px=ICC(estimator,group,...)
+           }
+       } else {
+           px=ICC(estimator,group,...)
+       }
        
         
         
     }
+    
+    
     
     var_n_outcome = sum((n$outcome-mean(n$outcome))^2)/length(n$outcome)
     

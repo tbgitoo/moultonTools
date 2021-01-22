@@ -5,7 +5,7 @@ ICC<-function(outcome,group,method="unbiased")
     # First, get the ICC from simple linear regression:
     
     
-    
+   
     
     
     
@@ -109,7 +109,7 @@ ICC<-function(outcome,group,method="unbiased")
     
     } else {
         
-        stop("Method not implemented")
+        stop(paste("Method ", method," not implemented", sep=""))
     }
     
     
