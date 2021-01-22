@@ -16,7 +16,7 @@ moulton_factor(outcome,group,estimator=NULL,...)
   \item{group}{
 The grouping variable, typically a factor indicating to which group the outcomes belong }
  \item{estimator}{Optionally, an estimator (predictive variable in the linear regression) can also be provided along with the outcome and group to get a more realistic picture of the Moulton factor }
- \item{...}{Additional parameters to be passed to \link{ICC}, called internally. Typically, this is a \code{method} argument as documented for the intraclass correlation coefficient \link{ICC}, possible values are at present \code{method="unbiased"} or equivalently \code{method="Fisher"}, as well as \code{method="unbiased_unequal_cluster_size"} and \code{"ANOVA"}.
+ \item{...}{Additional parameters to be passed to \link{ICC}, called internally. Typically, this is a \code{method} argument as documented for the intraclass correlation coefficient \link{ICC}, possible values are at present \code{method="unbiased"} or equivalently \code{method="Fisher"}, as well as \code{method="unbiased_unequal_cluster_size"} and \code{"ANOVA"}. It is also possible to provide \code{method="Angrist_mixed"}. In this case, the approach suggested in "Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008 is, where for the intraclass correlation of the observed values (i.e. \code{outcome}), the ANOVA approach is used, whereas for the regressors (i.e. \code{estimators}), Fisher's approach is used.
 }
 }
 
