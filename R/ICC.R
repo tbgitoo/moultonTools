@@ -1,12 +1,8 @@
-ICC<-function(outcome,group,method="unbiased")
+ICC<-function(outcome,group,method="unbiased",var_n="n")
 {
     # From Mostly Harmless Econometrics, D. Angrist
     
     # First, get the ICC from simple linear regression:
-    
-    
-   
-    
     
     
     group=as.factor(group)
@@ -45,12 +41,12 @@ ICC<-function(outcome,group,method="unbiased")
         # Sum xi* sum xj - n_g^2*x_mean*(x_bar+x_bar-x_mean)-sum(xi^2) - n_g*x_mean*(x_mean - x_bar - x_bar)
         # n_g^2*(x_mean-x_bar)^2 - sum(xi-x_bar)^2-ng*(x_mean-x_bar)^2
         # n_g*(n_g-1)*(x_mean-x_bar)^2-sum(xi-x_bar)^2
-        # n_g*(n_g-1)*(x_mean-x_bar)^2-var(xi)*(n_g-1) # Sample variance in R with n-1 degrees of freedom
         
         n_g = length(x)
         x_bar = mean(x)
-            
+         
         return(n_g*(n_g-1)*(x_mean-x_bar)^2-sum_squares(x))
+        
         
         
         
@@ -70,6 +66,7 @@ ICC<-function(outcome,group,method="unbiased")
         ng=aggregate(outcome~group,FUN=length)$outcome
         zg=aggregate(outcome~group,FUN=mean)$outcome
         n=length(outcome)
+        if(var_n=="n-1"){ n=n-1  }
         return((sum(ng^2*(zg-mean(outcome))^2)/(sum((outcome-mean(outcome))^2)/n)-n)/sum(ng*(ng-1)))
     
     } else if(method=="unbiased_unequal_cluster_size") {
@@ -80,8 +77,9 @@ ICC<-function(outcome,group,method="unbiased")
         N=length(ng)
         zg=aggregate(outcome~group,FUN=mean)$outcome
         n=length(outcome)
-        
-        return((n-3)/n/(n-N-2)*(sum(ng*(zg-mean(outcome))^2)/(sum((outcome-mean(outcome))^2)/n)-n*(N-1)/(n-3)))
+        nv = n
+        if(var_n=="n-1"){ nv=n-1  }
+        return((n-3)/n/(n-N-2)*(sum(ng*(zg-mean(outcome))^2)/(sum((outcome-mean(outcome))^2)/nv)-n*(N-1)/(n-3)))
         
         #return((sum(ng*(zg-mean(z))^2)/(sum((z-mean(z))^2)/n)))
         

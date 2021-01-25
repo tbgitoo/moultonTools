@@ -15,6 +15,9 @@ ICC(outcome,group,method="unbiased")
  The outcome variable (numerical vector) }
   \item{group}{
 The grouping variable, typically a factor indicating to which group the outcomes belong }
+\item{method}{Method for calculation of the intraclass correlation coefficient. This can be \code{"unbiased"} (equivalently, \code{"Fisher"}), or \code{"unbiased_unequal_cluster_size"} for
+a variant of the Fisher formula that will yield ICC=1 also for unequal cluster sizes upon full clustering, or finally \code{"ANOVA"} to use ANOVA for estimation of the intraclass-correlation.} 
+ \item{var_n}{Calculation of the population variance with n or n-1 degrees of freedom. By default,\code{var_n="n"} and n is used. To use n-1, pass \code{var_n="n-1"}.}
  
 }
 
@@ -29,6 +32,8 @@ The default value of the \code{method} argument is \code{"unbiased"}, alternativ
 We provide also an unbiased estimator which is equal to exactly equal to 1 for the totally correlated case. It can be invoked by providing \code{method="unbiased_unequal_cluster_size"} to \link{ICC}. This estimator is derived from the ANOVA estimator of intraclass correlation, which relates the intergroup variance to the total variance, but it is corrected for biais to give an expectation value of 0 for independently, equally and normally distributed outcome values. This estimator is \code{(n-3)/(n-N-2)*sum(ng*(zg-zbar))/sum(zi-zbar)-(N-1)/(n-N-2)}. The symboles are: \code{n} is the total number of observations (i.e. \code{length(outcome)=length(group)}), \code{N} the number of groups (i.e. \code{length(unique(group))}), \code{zbar} the overall mean (given by \code{zbar=mean(outcome)}), \code{ng} the individual group sizes (obtainable for example by \code{aggregate(outcome ~ group, FUN=length)}) and \code{zg} are the group means (obtainable for example by \code{aggregate(outcome ~ group, FUN=length)}).
 
 In addition, we provide an ANOVA-type estimator for completeness. For this, \link{ICC} needs to be invoked with \code{method="ANOVA"}. In this case, \link{anova} on a standard linear model \link{lm} is used for variance decomposition, and the fraction of the variance represented by the inter-group variance as compared to the total variance is returned as the intraclass correlation coefficient.\cr\cr
+
+For the methods \code{"unbiased"} and \code{""unbiased_unequal_cluster_size"}, an intergroup correlation term is explicitly compared to the sample variance (see eq. 8.2.5 in "Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008). This raises the question of estimation of the variance, either by \code{sum(squares)/n} or \code{sum(squares)/(n-1}. The estimation of the variances with a denominator of \code{n-1} is more precise on real-world samples, but it causes the estimated intra-class correlation coefficient not to reach is theoretical value of 1 for fully correlated samples. For this reason, by default, \code{n} is used, but we provide the option of forcing the use of a \code{n-1} degrees of liberty for variance estimation by providing \code{var_n="n-1"}. The value of the argument \code{var_n} has no effect when using \code{method="ANOVA"} since then, all relevant sums of squares are calculated using \link{anova} on a linear model as provided by \link{lm}.\cr\cr 
 
 For all methods, the calculation of the intraclass correlation involves sums of squares. No continuity correction is applied, so caution should be used if some of the group sizes are less than 5.
 
@@ -83,6 +88,22 @@ n <- grep("pdf", names(options()))
 system_pdf_viewer=options()[[n]]
 system_pdf_command = paste(system_pdf_viewer, system.file("calculations","ICC_calculations.pdf",package="moultonTools"),"2> /dev/null &",sep=" ")
 system(system_pdf_command)
+
+
+# Direct comparison to the R-Companion to Angrist and Pischke
+
+library(devtools)
+install_github(repo = "MatthieuStigler/RCompAngrist", subdir = "RCompAngrist")
+library(RCompAngrist)
+outcome=c(-1,-1.5,-2,-1.5,2,2.5,3,2.5,1.5)
+group=c(1,1,1,1,2,2,2,2,2)
+# This is the ICC function for the uniased method in the Angrist R Companion (it is hidden and has to be accessed using :::)
+RcompAngrist:::IC_moult(outcome,group)
+# For reference, this is the same formula here, when n-1 is imposed for the evaluation of the variance
+ICC(outcome,group,var_n="n-1")
+
+
+
 }
 
 

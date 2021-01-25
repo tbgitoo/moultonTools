@@ -55,6 +55,8 @@ estimator=as.factor(c("A","A","B","B","C","C","A","A","A"))
 moulton_factor(outcome,group,estimator=estimator)
 
 
+
+
 }
 
 \references{"Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008}
