@@ -25,7 +25,7 @@ function(treatment_factor,data,cluster_factor,...)
 				}
 				else
 				{
-					t_test=t.test.moulton(x=data[treatment_factor==a1],y=data[treatment_factor==a2],
+					t_test=moulton.t.test(x=data[treatment_factor==a1],y=data[treatment_factor==a2],
                         cluster_x=cluster_factor[treatment_factor==a1],cluster_y=cluster_factor[treatment_factor==a2],...)
 					pval=t_test$p.value
                     mf=t_test$moulton_factor

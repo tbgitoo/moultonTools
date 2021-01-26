@@ -8,7 +8,7 @@ Intraclass-correlation ICC
 Estimates the intraclass correlation coefficient for a given outome (readout) and grouping (clustering) variable
 }
 \usage{
-ICC(outcome,group,method="unbiased")
+ICC(outcome,group,method="unbiased",var_n="n")
 }
 \arguments{
   \item{outcome}{
@@ -94,7 +94,7 @@ system(system_pdf_command)
 
 library(devtools)
 install_github(repo = "MatthieuStigler/RCompAngrist", subdir = "RCompAngrist")
-library(RCompAngrist)
+library(RcompAngrist)
 outcome=c(-1,-1.5,-2,-1.5,2,2.5,3,2.5,1.5)
 group=c(1,1,1,1,2,2,2,2,2)
 # This is the ICC function for the uniased method in the Angrist R Companion (it is hidden and has to be accessed using :::)
@@ -116,8 +116,9 @@ ICC(outcome,group,var_n="n-1")
   The package "irr" provides ICC evaluation (function icc in the irr package) based on ANOVA, covering many different cases and also hypothesis testing.\cr
   The package "psych" similarly provides extensive ICC evaluation (function ICC in the psych package) based on ANOVA, covering many different cases, definitions and also hypothesis testing.\cr
   The package "rptR" focuses on repeatibility aspects and adds permutation tests and confidence intervals.\cr
+  The package "Hmisc" provides the function "deff" for design effect calculations, and allows to calculate a derived intraclass correlation coefficient (referred to as intra-cluster correlation in the help section associated with "deff").
   \cr\cr
-  More specifically regarding econometrics, there is a R companion to the book "Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008. It is available on as R package on Github (see https://github.com/MatthieuStigler/RCompAngrist), although it seems not to have been maintained further.
+  More specifically regarding econometrics, there is a R companion to the book "Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008. It is available on as R package on Github (see https://github.com/MatthieuStigler/RCompAngrist).
  
 }
 

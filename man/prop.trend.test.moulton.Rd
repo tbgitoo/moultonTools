@@ -8,7 +8,7 @@ prop.trend.test.moulton
 Proportion trend test, with Moulton correction for clustering. 
 }
 \usage{
-prop.trend.test.moulton(binaryResponse, score, cluster=seq_along(binaryResponse) )
+prop.trend.test.moulton(binaryResponse, score, cluster=seq_along(binaryResponse),... )
 }
 
 \arguments{

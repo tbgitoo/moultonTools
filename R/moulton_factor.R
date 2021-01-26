@@ -60,6 +60,7 @@ moulton_factor<-function(outcome,group,estimator=NULL,...)
            {
                call_args=c(list("outcome"=estimator,"group"=group),arguments)
                call_args[["method"]]="unbiased"
+               call_args[["var_n"]]="n-1"
                
                px=do.call(ICC,call_args)
            } else {

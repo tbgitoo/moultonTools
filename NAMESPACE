@@ -1,5 +1,6 @@
-# Default NAMESPACE created by R
-# Remove the previous line if you edit this file
-
+# Import functions used
+importFrom("stats", "aggregate", "anova", "complete.cases", "lm",
+             "model.frame", "pchisq", "pf", "prop.trend.test", "pt",
+             "qt", "setNames", "t.test", "var")
 # Export all names
 exportPattern(".")

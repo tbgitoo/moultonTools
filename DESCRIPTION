@@ -6,5 +6,5 @@ Date: 2012-04-09
 Author: Thomas and Marina Braschler
 Maintainer: Thomas Braschler <thomas.braschler@gmail.com>
 Description: Collection of functions to perform cluster-corrected tests using the Moulton correction
-License: GPL (>= 2)
+License: GPL-3 | file LICENCE
 LazyLoad: yes

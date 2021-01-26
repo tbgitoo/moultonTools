@@ -1,5 +1,5 @@
-\name{get_t_test_matrix}
-\alias{get_t_test_matrix}
+\name{get_t_test_matrix_moulton}
+\alias{get_t_test_matrix_moulton}
 
 \title{
 Get a T-Test matrix comparing the results under different treatments, taking into account a clustering factor via the Moutlon correction
@@ -20,7 +20,7 @@ get_t_test_matrix_moulton(treatment_factor, data,cluster_factor, ...)
 }
 \item{cluster_factor}{Factor describing the clustering. This is a vector of the same length as \code{treatment_factor} and \code{data}. Attention: clustering can either concern values inside treatment groups only or clusters across treatment groups as well. The two cases are distinguished by the values passed in \code{cluster_factor}. If they are distinct between two groups (i.e. if the first treatment group has the clusters 1,2,3 and the second the clusters 4,5,6), then the analysis considers clustering separately in the groups; if they are identical between the groups (i.e. clusters 1,2,3 for group 1 and group 2), then the analysis takes the entire clustering structure into account. Mixed scenarios are possible as well (i.e. clusters 1,2,3 in group 1, clusters 1,2 and 4 in group 2).}
 \item{...}{
-Additional arguments to be passed down to the underlying \code{\link{t.test.moulton}} function
+Additional arguments to be passed down to the underlying \code{\link{moulton.t.test}} function
 }
 }
 \details{
@@ -34,7 +34,7 @@ Thomas Braschler
 }
 
 \seealso{
-This is a convenience interface to \link{t.test.moulton}, see \link{t.test.moulton} for further documentation on the actual testing.
+This is a convenience interface to \link{moulton.t.test}, see \link{moulton.t.test} for further documentation on the actual testing.
 }
 
 \examples{

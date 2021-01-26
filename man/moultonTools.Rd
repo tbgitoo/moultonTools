@@ -7,7 +7,7 @@
 moultonTools
 }
 \description{
-Tools for applying the Moulton correction for clustering. The logics for Moulton factor and intraclass correlation coefficient calculations are primarily based on the book "Mostly harmless econometrics: An empiricists companion", Angrist J. and Pishke J.S., Princeton, Oxford, 2008. The package contains additional convenience functions to perform Moulton-corrected tests in common settings: The functions \link{anova_moulton}, \link{t.test.moulton}, \link{prop.trend.test.moulton} are analogs of the corresponding native R functions with built-in Moulton correction.  
+Tools for applying the Moulton correction for clustering. The logics for Moulton factor and intraclass correlation coefficient calculations are primarily based on the book "Mostly harmless econometrics: An empiricists companion", Angrist J. and Pishke J.S., Princeton, Oxford, 2008. The package contains additional convenience functions to perform Moulton-corrected tests in common settings: The functions \link{anova_moulton}, \link{moulton.t.test}, \link{prop.trend.test.moulton} are analogs of the corresponding native R functions with built-in Moulton correction.  
 }
 \details{
 \tabular{ll}{

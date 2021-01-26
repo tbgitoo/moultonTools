@@ -1,4 +1,4 @@
-t.test.moulton<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=NULL, alternative = c("two.sided", "less", "greater"),
+moulton.t.test<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=NULL, alternative = c("two.sided", "less", "greater"),
 mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
 ...)
 {

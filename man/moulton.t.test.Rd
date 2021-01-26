@@ -1,14 +1,14 @@
-\name{t.test.moulton}
-\alias{t.test.moulton}
+\name{moulton.t.test}
+\alias{moulton.t.test}
 
 \title{
-t.test.moulton
+moulton.t.test
 }
 \description{
 T-test with Moulton correction for clustered variables. Works like \link{t.test}, but corrects the standard deviation and in some cases the degrees of freedom applicable in test evaluation
 }
 \usage{
-t.test.moulton(x, y = NULL,cluster_x=NULL,cluster_y=NULL, alternative = c("two.sided", "less", "greater"),
+moulton.t.test(x, y = NULL,cluster_x=1:length(x),cluster_y=NULL, alternative = c("two.sided", "less", "greater"),
 mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
 ...)
 }
@@ -87,7 +87,7 @@ t.test(aggregate(x ~ cluster_x,FUN=mean)$x,aggregate(y ~ cluster_y,FUN=mean)$y)
 
 # The Moulton correction roughly does it
 
-t.test.moulton(x,y,cluster_x,cluster_y)
+moulton.t.test(x,y,cluster_x,cluster_y)
 
 # If on the other hand, the groups are distributed over the two test variables, this is a balanced design and chances to get a highly significant result where there is nothing are not that high anymore
 
@@ -100,7 +100,7 @@ y=cluster_values[cluster_y]+rnorm(3*n,sd=0.15)
 
 t.test(x,y)
 
-t.test.moulton(x,y,cluster_x,cluster_y)
+moulton.t.test(x,y,cluster_x,cluster_y)
 
 
 
