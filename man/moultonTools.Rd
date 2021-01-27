@@ -26,3 +26,11 @@ Thomas Braschler <thomas.braschler@gmail.com>\cr
 
 \keyword{misc}
 
+\references{
+
+"Mostly harmless econometrics: An Empiricist's Companion", Angrist J.D., Pischke, J.S., 2008
+
+}
+
+
+
