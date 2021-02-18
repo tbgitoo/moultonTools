@@ -79,6 +79,10 @@ moulton_factor<-function(outcome,group,estimator=NULL,...)
     var_n_outcome = sum((n$outcome-mean(n$outcome))^2)/length(n$outcome)
     
     mf=(1+(var_n_outcome/mean(n$outcome)+mean(n$outcome)-1)*px*intraclass)
+    
+    # If all outcomes are identical, in principle, we cannot estimate variance. Return the default value then
+    if(all(outcome==outcome[1])) {mf=1}
+    
     if(mf<1) {mf=1}
     
     ret=sqrt(mf)
