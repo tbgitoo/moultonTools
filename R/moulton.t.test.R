@@ -78,6 +78,10 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             df=df_t_cluster(x=x,cluster_x=cluster_x,...)
             
         }
+        if(method_df=="IK")
+        {
+            df=moultonTools:::dfadjustSE(lm(x~ 1),clustervar=as.factor(cluster_x))$coefficients["(Intercept)","df"]
+        }
         
         moulton_factor_x=1
         
@@ -175,6 +179,14 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
                 
             }
             
+            if(method_df=="IK")
+            {
+                all_x=c(x,y)
+                all_cluster=c(cluster_x,cluster_y)
+                treg=c(rep(0,length(x)),rep(1,length(y)))
+                df=moultonTools:::dfadjustSE(lm(all_x ~ treg),clustervar=as.factor(all_cluster))$coefficients["treg","df"]
+            }
+            
             
         } else {
             
@@ -192,6 +204,13 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
              if(method_df=="ICC")
              {
                  df=df_t_cluster(x=x,cluster_x=cluster_x,y=y,cluster_y=cluster_y,var.equal=FALSE,...)
+             }
+             if(method_df=="IK")
+             {
+                 all_x=c(x,y)
+                 all_cluster=c(cluster_x,cluster_y)
+                 treg=c(rep(0,length(x)),rep(1,length(y)))
+                 df=moultonTools:::dfadjustSE(lm(all_x ~ treg),clustervar=as.factor(all_cluster))$coefficients["treg","df"]
              }
              stderr <- stderr*mf
         }
