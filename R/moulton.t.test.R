@@ -1,4 +1,4 @@
-moulton.t.test<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=NULL, alternative = c("two.sided", "less", "greater"),
+moulton.t.test<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=NULL,method_df="cluster", alternative = c("two.sided", "less", "greater"),
 mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
 ...)
 {
@@ -72,6 +72,12 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
         # Conservative estimate of the degree of freedom: the number of clusters
         
         df <- cluster_nx - 1
+        
+        if(method_df=="ICC")
+        {
+            df=df_t_cluster(x=x,cluster_x=cluster_x,...)
+            
+        }
         
         moulton_factor_x=1
         
@@ -161,6 +167,15 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             # Correct for clustering in the degrees of freedom
             
             df<-cluster_nx + cluster_ny -2
+            
+            
+            if(method_df=="ICC")
+            {
+                df=df_t_cluster(x=x,cluster_x=cluster_x,y=y,cluster_y=cluster_y,var.equal=TRUE,...)
+                
+            }
+            
+            
         } else {
             
             stderrx <- sqrt(vx/nx)
@@ -174,6 +189,10 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
              stderr <- sqrt(stderrx^2 + stderry^2)
             df <- stderr^4/(stderrx^4/(cluster_nx - 1) + stderry^4/(cluster_ny -
             1))
+             if(method_df=="ICC")
+             {
+                 df=df_t_cluster(x=x,cluster_x=cluster_x,y=y,cluster_y=cluster_y,var.equal=FALSE,...)
+             }
              stderr <- stderr*mf
         }
         if (stderr < 10 * .Machine$double.eps * max(abs(mx),
