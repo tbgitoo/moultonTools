@@ -21,8 +21,8 @@ df_t_cluster<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=1:length(y),
           y_cluster_size = as.vector(table(cluster_y))
           n=sum(x_cluster_size)+sum(y_cluster_size)
           # Take into account unequal sizes of the clusters
-          
-          df_clustered=n^2/(sum(x_cluster_size^2)+sum(y_cluster_size^2))-2
+          G=length(unique(c(cluster_x,cluster_y))) # Total number of clusters
+          df_clustered=n^2/(sum(x_cluster_size^2)+sum(y_cluster_size^2))*(G-2)/G
           df_unclustered=length(x)+length(y)-2
         } else {
             stderrx <- sqrt(var(x)/length(x))
