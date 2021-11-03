@@ -75,7 +75,11 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
         
         if(method_df=="ICC")
         {
-            df=df_t_cluster(x=x,cluster_x=cluster_x,...)
+            args=list(...)
+            args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+            args[["x"]]=x
+            args[["cluster_x"]]=cluster_x
+            df=do.call(df_t_cluster,args)
             
         }
         if(method_df=="IK")
@@ -175,7 +179,14 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             
             if(method_df=="ICC")
             {
-                df=df_t_cluster(x=x,cluster_x=cluster_x,y=y,cluster_y=cluster_y,var.equal=TRUE,...)
+                args=list(...)
+                args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+                args[["x"]]=x
+                args[["cluster_x"]]=cluster_x
+                args[["y"]]=y
+                args[["cluster_y"]]=cluster_y
+                args[["var.equal"]]=TRUE
+                df=do.call(df_t_cluster,args)
                 
             }
             
