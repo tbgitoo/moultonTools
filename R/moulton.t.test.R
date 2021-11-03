@@ -166,7 +166,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             v <- v/df
             
             
-            v<-v*mf
+            v<-v*mf^2
             
             
             
