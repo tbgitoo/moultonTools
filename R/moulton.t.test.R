@@ -76,7 +76,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
         if(method_df=="ICC")
         {
             args=list(...)
-            args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+            args[["method"]]="unbiased" # Unbiased method to preserve expectation values
             args[["x"]]=x
             args[["cluster_x"]]=cluster_x
             df=do.call(df_t_cluster,args)
@@ -112,7 +112,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             # Correct here for the effect of clustering in variance estimation. vx is with a denominator of n-1, so only
             # secondary correction to the clustered case
             args=list(...)
-            args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+            args[["method"]]="unbiased" # Unbiased method to preserve expectation values
             args[["x"]]=x
             args[["cluster_x"]]=cluster_x
             C=do.call(C_t_cluster,args)
@@ -184,7 +184,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
                 # Correct here for the effect of clustering in variance estimation. vx is with a denominator of n-1, so only
                 # secondary correction to the clustered case
                 args=list(...)
-                args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+                args[["method"]]="unbiased" # Unbiased method to preserve expectation values
                 args[["x"]]=x
                 args[["cluster_x"]]=cluster_x
                 args[["y"]]=y
@@ -211,7 +211,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             if(method_df=="ICC")
             {
                 args=list(...)
-                args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+                args[["method"]]="unbiased" # Use unbiased method to recover as much as possible the expectation values
                 args[["x"]]=x
                 args[["cluster_x"]]=cluster_x
                 args[["y"]]=y

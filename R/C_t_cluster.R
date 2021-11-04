@@ -1,19 +1,25 @@
 C_t_cluster<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=1:length(y),var.equal=TRUE,method="ANOVA",...)
 {
     
-    
+    restrict_ICC=FALSE
     if(is.null(y))
     {
         ICC_val=ICC(x,cluster_x,method=method,...)
+        if(restrict_ICC)
+        {
         if(ICC_val <0 ) {ICC_val = 0}
         if(ICC_val > 1) {ICC_val = 1}
+        }
         C_clustered=(length(x)-max(table(cluster_x)))/length(x)
         C_unclustered=(length(x)-1)/length(x)
         
     } else {
         ICC_val=ICC(c(x-mean(x),y-mean(y)),c(cluster_x,cluster_y),method=method,...)
+        if(restrict_ICC)
+        {
         if(ICC_val <0 ) {ICC_val = 0}
         if(ICC_val > 1) {ICC_val = 1}
+        }
         if(var.equal) # This is the homoscedastic case
         {
           x_cluster_size = as.vector(table(cluster_x))
