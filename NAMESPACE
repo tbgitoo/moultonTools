@@ -3,4 +3,4 @@ importFrom("stats", "aggregate", "anova", "complete.cases", "lm",
              "model.frame", "pchisq", "pf", "prop.trend.test", "pt",
              "qt", "setNames", "t.test", "var")
 # Export all names
-exportPattern("anova_moulton","df_t_cluster","get_t_test_matrix_moulton", "ICC","moulton_factor","moulton.t.test","prop.trend.test.moulton")
+exportPattern("anova_moulton","C_t_cluster","df_t_cluster","get_t_test_matrix_moulton", "ICC","moulton_factor","moulton.t.test","prop.trend.test.moulton")

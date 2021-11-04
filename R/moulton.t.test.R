@@ -1,4 +1,4 @@
-moulton.t.test<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=NULL,method_df="cluster", alternative = c("two.sided", "less", "greater"),
+moulton.t.test<-function (x, y = NULL,cluster_x=1:length(x),cluster_y=NULL,method_df="cluster",do_sample_variance_correction=FALSE, alternative = c("two.sided", "less", "greater"),
 mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
 ...)
 {
@@ -105,6 +105,21 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
         vx<-vx*moulton_factor_x^2
         mf<-moulton_factor_x
         
+        
+        
+        if(do_sample_variance_correction)
+        {
+            # Correct here for the effect of clustering in variance estimation. vx is with a denominator of n-1, so only
+            # secondary correction to the clustered case
+            args=list(...)
+            args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+            args[["x"]]=x
+            args[["cluster_x"]]=cluster_x
+            C=do.call(C_t_cluster,args)
+            # The variance is already calculated with n-1, so remove that correction and replace with the new one
+            vx<-vx*(length(x)-1)/length(x)*C
+        }
+        
         stderr <- sqrt(vx/nx)
         
         if (stderr < 10 * .Machine$double.eps * abs(mx))
@@ -163,7 +178,23 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             v <- v + (nx - 1) * vx
             if (ny > 1)
             v <- v + (ny - 1) * vy
-            v <- v/df
+            
+            if(do_sample_variance_correction)
+            {
+                # Correct here for the effect of clustering in variance estimation. vx is with a denominator of n-1, so only
+                # secondary correction to the clustered case
+                args=list(...)
+                args[["method"]]="ANOVA" # The ICC needs to be calculated from ANOVA for the degrees of freedom, even if otherwise another method is used
+                args[["x"]]=x
+                args[["cluster_x"]]=cluster_x
+                args[["y"]]=y
+                args[["cluster_y"]]=cluster_y
+                args[["var.equal"]]=TRUE
+                C=do.call(C_t_cluster,args)
+                v <- v/(nx+ny)*C
+            } else {
+                v <- v/df
+            }
             
             
             v<-v*mf^2
@@ -172,7 +203,7 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             
             stderr <- sqrt(v * (1/nx + 1/ny))
             
-            # Correct for clustering in the degrees of freedom
+            # Correct for clustering in the degrees of freedom, conservative estimate based on the clusters only
             
             df<-cluster_nx + cluster_ny -2
             
@@ -210,6 +241,16 @@ mu = 0, paired = FALSE, var.equal = FALSE, conf.level = 0.95,
             # df <- cluster_nx + cluster_ny -2
             
              stderr <- sqrt(stderrx^2 + stderry^2)
+             
+             if(do_sample_variance_correction)
+             {
+             
+                C=C_t_cluster(x=x,cluster_x=cluster_x,y=y,cluster_y=cluster_y,var.equal=FALSE,...)
+                stderr<-stderr*sqrt(C)
+             
+             }
+             
+             
             df <- stderr^4/(stderrx^4/(cluster_nx - 1) + stderry^4/(cluster_ny -
             1))
              if(method_df=="ICC")
